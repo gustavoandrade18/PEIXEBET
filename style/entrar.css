@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #012a3a, #00121c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e8fbff;
+}
+
+.card {
+  background: rgba(1, 40, 60, 0.92);
+  padding: 40px 36px;
+  border-radius: 16px;
+  width: 320px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  border: 1px solid rgba(35,216,255,0.15);
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 28px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 24px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+label {
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #012a3a;
+  color: #e8fbff;
+  outline: none;
+  border: 1px solid rgba(35,216,255,0.15);
+}
+
+input::placeholder {
+  color: #9fb2d3;
+}
+
+input:focus {
+  border-color: #23d8ff;
+  box-shadow: 0 0 0 2px rgba(35,216,255,0.15);
+}
+
+button {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(135deg, #1fbad6, #0ea5e9);
+  color: #00121c;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+footer a {
+  color: #23d8ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

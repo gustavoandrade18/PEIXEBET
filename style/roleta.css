@@ -1,0 +1,405 @@
+:root {
+    --bg: #011627;                 /* fundo abissal */
+    --card: #02233f;               /* painel da roleta */
+    --accent: #23d8ff;             /* ciano bioluminescente */
+    --accent-glow: rgba(35, 216, 255, 0.55);
+    --glass: rgba(255, 255, 255, 0.05);
+    --text-color: #d9f6ff;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Inter, Segoe UI, Roboto, Arial;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background: radial-gradient(circle at 50% 15%, #033a53, #01121f 80%);
+    color: var(--text-color);
+}
+
+.wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.card {
+    width: 920px;
+    max-width: 100%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+    border-radius: 14px;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 430px 1fr;
+    gap: 18px;
+    box-shadow: 0 0 30px rgba(0, 100, 150, 0.4);
+    border: 1px solid rgba(35,216,255,0.15);
+    backdrop-filter: blur(6px);
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0 0 6px 0;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+#wheelCanvas {
+    background: radial-gradient(circle, #013049, #001522 75%);
+    border-radius: 50%;
+    width: 420px;
+    height: 420px;
+    box-shadow: 0 0 20px rgba(0,160,255,0.25);
+    border: 2px solid rgba(35,216,255,0.25);
+}
+
+.pointer {
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-bottom: 34px solid var(--accent);
+    filter: drop-shadow(0 4px 10px var(--accent-glow));
+    transform: translateY(-8px);
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+button {
+    background: var(--accent);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: #003040;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 15px;
+    text-shadow: 0 0 5px rgba(0,0,0,0.4);
+    box-shadow: 0 0 10px var(--accent-glow);
+    transition: 0.2s;
+}
+
+button:hover:not(:disabled) {
+    background: #5ee7ff;
+    box-shadow: 0 0 14px rgba(35,216,255,0.75);
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.info {
+    background: var(--glass);
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(35,216,255,0.15);
+}
+
+.right {
+    padding: 8px;
+}
+
+.history {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    font-weight: 600;
+    color: #fff;
+}
+
+.legend {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.legend .row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+footer {
+    font-size: 13px;
+    color: #9fd9f3;
+    margin-top: 8px;
+}
+
+@media(max-width:860px) {
+    .card {
+        grid-template-columns: 1fr;
+        align-items: center;
+    }
+}
+
+/* Fundo que borra quando o inventário abre */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    z-index: 9;
+}
+
+/* Inventário */
+.inventario {
+    position:relative;
+    display: flex;
+    flex-wrap: wrap;       /* permite itens quebrarem linha */
+    gap: 10px;             /* espaço entre itens */
+    overflow-y: auto;      /* scroll vertical */
+    padding: 10px;         /* evita itens colarem na borda */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 520px;
+    height: 450px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    z-index: 10;
+}
+
+/* Quando abrir */
+.inventario.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+#inventarioButton {
+    position: absolute;   
+    top: 20px;           
+    right: 160px;          
+    width: 40px;
+    height: 40px; 
+    background: red;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 20;          /* acima do inventário */
+    border: none;
+    cursor: pointer;
+}
+
+.item {
+    width: 150px;
+    height: 150px; /* ⬅️ era 120px */
+    background: #1a1a1a;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 6px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: white;
+    overflow: hidden;
+}
+
+
+
+.item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 4px;
+    flex-shrink: 0; /* não deixa a imagem encolher */
+}
+
+
+.item .nome {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.item .qtd {
+    font-size: 12px;
+    color: #ccc;
+    margin-top: auto; /* empurra pra baixo */
+}
+
+/*As moedas do jogador*/
+#peixeCoin {
+  min-width: 140px;
+  padding: 10px 14px;
+  margin-right: 12px; /* afasta dos botões */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  background: linear-gradient(145deg, #0f172a, #020617);
+  border: 2px solid #1e293b;
+  border-radius: 12px;
+
+  color: #facc15; /* dourado */
+  font-weight: 600;
+  font-size: 15px;
+
+  box-shadow:
+    inset 0 0 6px rgba(250, 204, 21, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+
+  user-select: none;
+}
+
+/* opcional: animação leve quando mudar valor */
+#peixeCoin.update {
+  animation: coinPulse 0.35s ease;
+}
+
+@keyframes coinPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+/*Custo*/
+#spinBtn, #fastBtn {
+  position: relative;
+}
+
+#spinBtn .cost ,#fastBtn  .cost {
+  margin-left: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #facc15;
+}
+
+.conquistas {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 520px;
+  height: 360px;
+
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+
+  padding: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.conquistas.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.conquistas h2 {
+  margin: -30px 0 20px;
+  text-align: center;
+}
+
+.conquistas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  overflow-y: auto;
+  height: 290px;
+}
+
+.conquista {
+  width: 150px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.conquista img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
+.conquista .titulo {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.conquista .desc {
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* 🔒 Conquista bloqueada */
+.conquista.locked img {
+  filter: blur(6px) brightness(0.4);
+}
+
+.conquista.locked .titulo,
+.conquista.locked .desc {
+  color: #777;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Entrar | PeixeBet</title>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.min.js" defer></script>
+  <script src="../js/entrar.js" defer></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../style/entrar.css">
+  <link rel="icon" href="../peixonauta.png" type="image/png">
+</head>
+<body>
+
+  <div class="card">
+    <h1>Entrar</h1>
+    <p class="subtitle">Bem-vindo de volta à PeixeBet</p>
+
+    <form id="formUsuario">
+      <label>
+        Nome
+        <input type="text" id="nome" placeholder="Seu nome" required>
+      </label>
+
+      <label>
+        Senha
+        <input type="password" id="password" placeholder="Sua senha" required>
+      </label>
+
+      <button type="button" onclick="entrar()">Entrar</button>
+    </form>
+
+    <footer>
+      Não tem conta?
+      <a href="../cadastrar/index.html">Criar conta</a>
+    </footer>
+  </div>
+
+</body>
+</html>

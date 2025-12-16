@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+
+  <title>Cadastro | PeixeBet</title>
+
+  <!-- libs -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js" defer></script>
+  <script src="../js/cadastrar.js" defer></script>
+
+  <!-- css -->
+  <link rel="stylesheet" href="../style/cadastrar.css">
+  <link rel="icon" href="../peixonauta.png" type="image/png">
+</head>
+<body>
+
+  <div class="card">
+    <h1>Criar Conta</h1>
+    <p class="subtitle">Entre no universo da PeixeBet</p>
+
+    <form id="formUsuario">
+      <label>
+        Nome
+        <input type="text" id="nome" placeholder="Seu nome" required>
+      </label>
+
+      <label>
+        Senha
+        <input type="password" id="password" placeholder="Sua senha" required>
+      </label>
+
+      <button type="button" onclick="cadastrar()">Cadastrar</button>
+    </form>
+
+    <footer>
+      Já tem conta?
+      <a href="../entrar/index.html">Entrar</a>
+    </footer>
+  </div>
+
+</body>
+</html>
