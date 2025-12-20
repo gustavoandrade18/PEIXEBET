@@ -49,8 +49,8 @@ if (!idUsuario) {
 const rouletteSound = document.getElementById("rouletteSound");
 
 const prizes = [
-    { text: "67", img: "../premios/67.png", chance: 0.2 }, // 13%
-    { text: "Mendigo", img: "../premios/heathcliff.png", chance: 0.01 },    // 7%
+    { text: "67", img: "../premios/67.png", chance: 0.13 }, // 13%
+    { text: "Mendigo", img: "../premios/heathcliff.png", chance: 0.09 },    // 7%
     { text: "Aura", img: "../premios/aura.png", chance: 0.13 },  // 13%
     { text: "Mouse roubado", img: "../premios/mouse.png", chance: 0.13 },   // 13%
     { text: "Laranxinha", img: "../premios/laranxinha.png", chance: 0.13 },// 13%
