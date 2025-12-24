@@ -65,6 +65,7 @@ const prizes = [
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
   renderConquistas();
+  verificarConquista();
   // --- CONFIGURAÇÃO DOS PRÊMIOS (ajuste os caminhos das imagens) ---
 
 
@@ -634,7 +635,6 @@ async function renderConquistas() {
 async function toggleConquistas() {
   document.getElementById("conquistas").classList.toggle("active");
   document.getElementById("overlayConquistas").classList.toggle("active");
-  verificarConquista();
 
 }
 //#endregion
@@ -653,33 +653,37 @@ async function verificarConquista() {
     return;
   }
   //Conquistas especificas
-  if (peixeCoin <= 0 && await supabasePublicClient
+  const { data: conquistaExiste1 } = await supabasePublicClient
     .from("conquistas")
     .select("id_conquista")
     .eq("id_usuario", idUsuario)
     .eq("conquista", "Pobre")
-    .single()) {
+    .maybeSingle();
+    const { data: conquistaExiste2 } = await supabasePublicClient
+    .from("conquistas")
+    .select("id_conquista")
+    .eq("id_usuario", idUsuario)
+    .eq("conquista", "Rico")
+    .maybeSingle();
+
+  if (peixeCoin <= 0 && !conquistaExiste1) {
     const { error: insertError } = await supabasePublicClient
       .from("conquistas")
       .insert({
         id_usuario: idUsuario,
         conquista: "Pobre"
       });
+    alert("Conquista desbloqueada: Pobre");
   }
-
-  if (peixeCoin >= 2000 && await supabasePublicClient
-          .from("conquistas")
-          .select("id_conquista")
-          .eq("id_usuario", idUsuario)
-          .eq("conquista", "Rico")
-          .single()) {
+  
+  else if (peixeCoin >= 2000 && !conquistaExiste2) {
     const { error: insertError } = await supabasePublicClient
       .from("conquistas")
       .insert({
         id_usuario: idUsuario,
         conquista: "Rico"
       });
-
+    alert("Conquista desbloqueada: Rico");
   }
 
   //Conquistas gerais
@@ -701,6 +705,7 @@ async function verificarConquista() {
               id_usuario: idUsuario,
               conquista: regra.nome
             });
+            alert(`Conquista desbloqueada: ${regra.nome}`);
         }
       }
     }
