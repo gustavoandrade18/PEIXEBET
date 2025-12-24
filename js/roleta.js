@@ -294,7 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
         announceResult(chosenPrize);
       }
     }
-    verificarConquista();
     requestAnimationFrame(frame);
   }
 
@@ -340,6 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Inserido:", inserted);
       }
     }
+    verificarConquista();
   }
 
   function addHistory(prize) {
