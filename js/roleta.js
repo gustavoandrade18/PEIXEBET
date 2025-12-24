@@ -51,13 +51,13 @@ const rouletteSound = document.getElementById("rouletteSound");
 
 const prizes = [
   { text: "67", img: "../premios/67.png", chance: 0.13 },
-  { text: "Mendigo", img: "../premios/heathcliff.png", chance: 0.09 },
+  { text: "Mendigo", img: "../premios/heathcliff.png", chance: 0.10 },
   { text: "Aura", img: "../premios/aura.png", chance: 0.13 },
   { text: "Mouse roubado", img: "../premios/mouse.png", chance: 0.13 },
   { text: "Laranxinha", img: "../premios/laranxinha.png", chance: 0.13 },
-  { text: "250 Peixe Coins", img: "../premios/peixecoin.png", chance: 0.25 },
+  { text: "250 Peixe Coins", img: "../premios/peixecoin.png", chance: 0.17 },
   { text: "Peixe Beta", img: "../premios/peixebeta.png", chance: 0.2 },
-  { text: "Peixe Sigma", img: "../premios/peixesigma.png", chance: 0.001 },
+  { text: "Peixe Sigma", img: "../premios/peixesigma.png", chance: 0.007 },
   { text: "Alisa meu pelo", img: "../premios/onca.png", chance: 0.13 },
   { text: "Parafuso", img: "../premios/parafuso.png", chance: 0.13 },
   { text: "Quidimais", img: "../premios/quidimais.png", chance: 0.13 }
@@ -547,7 +547,7 @@ const conquistas = [
     tipo: "Mendigo",
     quantidade: 15,
     desc: "Tenha 15 mendigos",
-    img: "../premios/heatchcliff.png",
+    img: "../premios/heathcliff.png",
     unlocked: false
   },
   {
