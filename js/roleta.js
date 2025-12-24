@@ -339,7 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Inserido:", inserted);
       }
     }
-    verificarConquista();
   }
 
   function addHistory(prize) {
@@ -368,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
       historyEl.appendChild(el);
     });
     countEl.textContent = history.length;
+    verificarConquista();
   }
 
   // acessibilidade: região aria-live
