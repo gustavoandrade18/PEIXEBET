@@ -1,3 +1,4 @@
+
 const supabasePublicClient = supabase.createClient("https://wdydybykkhkbqrahiegq.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkeWR5Ynlra2hrYnFyYWhpZWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5NDUyODIsImV4cCI6MjA4MDUyMTI4Mn0.urD38OYOc8TO4EgMo_JzuoQrzKF0UojvY5smsPK0wJ0",
   {
     db: {
@@ -49,29 +50,33 @@ if (!idUsuario) {
 const rouletteSound = document.getElementById("rouletteSound");
 
 const prizes = [
-    { text: "67", img: "../premios/67.png", chance: 0.13 }, // 13%
-    { text: "Mendigo", img: "../premios/heathcliff.png", chance: 0.09 },    // 7%
-    { text: "Aura", img: "../premios/aura.png", chance: 0.13 },  // 13%
-    { text: "Mouse roubado", img: "../premios/mouse.png", chance: 0.13 },   // 13%
-    { text: "Laranxinha", img: "../premios/laranxinha.png", chance: 0.13 },// 13%
-    { text: "200 Peixe Coins", img: "../premios/peixecoin.png", chance: 0.2 },   // 24%
-    { text: "Peixe Beta", img: "../premios/peixebeta.png", chance: 0.2 },   // 20%
-    { text: "Peixe Sigma", img: "../premios/peixesigma.png", chance: 0.01 }   // 1%
-  ];
+  { text: "67", img: "../premios/67.png", chance: 0.13 },
+  { text: "Mendigo", img: "../premios/heathcliff.png", chance: 0.09 },
+  { text: "Aura", img: "../premios/aura.png", chance: 0.13 },
+  { text: "Mouse roubado", img: "../premios/mouse.png", chance: 0.13 },
+  { text: "Laranxinha", img: "../premios/laranxinha.png", chance: 0.13 },
+  { text: "200 Peixe Coins", img: "../premios/peixecoin.png", chance: 0.2 },
+  { text: "Peixe Beta", img: "../premios/peixebeta.png", chance: 0.2 },
+  { text: "Peixe Sigma", img: "../premios/peixesigma.png", chance: 0.001 },
+  { text: "Alisa meu pelo", img: "../premios/onca.png", chance: 0.13 },
+  { text: "Parafuso", img: "../premios/parafuso.png", chance: 0.13 },
+  { text: "Quidimais", img: "../premios/quidimais.png", chance: 0.13 }
+];
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
+  renderConquistas();
   // --- CONFIGURAÇÃO DOS PRÊMIOS (ajuste os caminhos das imagens) ---
-  
+
 
   // --- ELEMENTOS DOM ---
   const canvas = document.getElementById('wheelCanvas');
   const spinBtn = document.getElementById('spinBtn');
-  const fastBtn = document.getElementById('fastBtn');
+  //const fastBtn = document.getElementById('fastBtn');
   const resultEl = document.getElementById('result');
   const historyEl = document.getElementById('history');
   const countEl = document.getElementById('count');
 
-  if (!canvas || !spinBtn || !fastBtn || !resultEl || !historyEl || !countEl) {
+  if (!canvas || !spinBtn || !resultEl || !historyEl || !countEl) {
     console.error('Elemento(s) não encontrado(s). Verifique ids: wheelCanvas, spinBtn, fastBtn, result, history, count.');
     return;
   }
@@ -239,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (spinning) return;
     spinning = true;
     spinBtn.disabled = true;
-    fastBtn.disabled = true;
+    // fastBtn.disabled = true;
 
     //toca o audio
     rouletteSound.currentTime = 0; // reinicia o áudio sempre
@@ -284,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rouletteSound.currentTime = 0;
         spinning = false;
         spinBtn.disabled = false;
-        fastBtn.disabled = false;
+        // fastBtn.disabled = false;
         announceResult(chosenPrize);
       }
     }
@@ -296,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resultEl.textContent = `Prêmio: ${prize.text}`;
     addHistory(prize);
     liveRegion.textContent = `Prêmio: ${prize.text}`;
-
+    renderConquistas();
     //ganhou peixeCoins
     if (prize.text.includes("Peixe Coins")) {
       const valor = parseInt(prize.text); // "200 Peixe Coins" -> 200
@@ -337,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function addHistory(prize) {
     history.unshift(prize);
-    if (history.length > 12) history.pop();
+    if (history.length > 30) history.pop();
     // renderiza histórico com imagem pequena
     historyEl.innerHTML = '';
     history.forEach(p => {
@@ -372,26 +377,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // listeners
   spinBtn.addEventListener('click', () => {
-    if (peixeCoin > 50) {
+    if (peixeCoin >= 50) {
       peixeCoin = peixeCoin - 50;
       spin(6 + Math.floor(Math.random() * 4))
     }
     else alert("peixeCoins insuficientes");
   });
-  fastBtn.addEventListener('click', () => {
+  /*fastBtn.addEventListener('click', () => {
     if (peixeCoin > 50) {
       peixeCoin = peixeCoin - 50;
       instantSpin()
     }
-  else alert("peixeCoins insuficientes");
-  })
-  
+    else alert("peixeCoins insuficientes");
+  })*/
+
   function instantSpin() {
     peixeCoinsUpd();
     if (spinning) return;
     spinning = true;
     spinBtn.disabled = true;
-    fastBtn.disabled = true;
+    //fastBtn.disabled = true;
 
     // usa a função choosePrizeWeighted() já definida no seu código (não redefina aqui)
     const chosenIndex = choosePrizeWeighted();
@@ -424,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     spinning = false;
     spinBtn.disabled = false;
-    fastBtn.disabled = false;
+    // fastBtn.disabled = false;
 
     // anuncia o resultado como antes
     announceResult(chosenPrize);
@@ -442,14 +447,14 @@ document.addEventListener('DOMContentLoaded', () => {
   preloadImages(prizes).then(() => {
     // habilitar botões depois do preload para evitar clique antes de desenhar
     spinBtn.disabled = false;
-    fastBtn.disabled = false;
+    //fastBtn.disabled = false;
     // ajustar canvas (chama drawWheel internamente)
     resizeCanvas();
   });
 
   // primeira desativaçao enquanto carrega
   spinBtn.disabled = true;
-  fastBtn.disabled = true;
+  // fastBtn.disabled = true;
 
 });
 
@@ -485,35 +490,105 @@ async function toggleInventario() {
 
 
 }
+//#region Conquistas
 const conquistas = [
   {
-    id: "primeiro_spin",
-    titulo: "Primeira Girada",
-    desc: "Gire a roleta pela primeira vez",
-    img: "img/achv_spin.png",
-    unlocked: false
-  },
-  {
-    id: "rico_2000",
-    titulo: "RICO",
+    nome: "Rico",
+    tipo: "peixeCoin",
+    quantidade: 2000,
     desc: "Tenha 2000 PeixeCoins",
     img: "../premios/peixecoin.png",
     unlocked: false
   },
   {
-    id: "Pobre",
-    titulo: "POBRE",
+    nome: "Pobre",
+    tipo: "peixeCoin",
+    quantidade: 0,
     desc: "Tenha 0 PeixeCoins",
     img: "../premios/peixecoin.png",
     unlocked: false
   },
   {
-    id: "rico_total",
-    titulo: "Rico em PeixeCoin",
-    desc: "Tenha muitas PeixeCoins",
-    img: "../premios/peixecoin.png",
+    nome: "Oque eu trouxe pra ti uma vez...",
+    tipo: "Laranxinha",
+    quantidade: 5,
+    desc: "Tenha 5 laraxinhas",
+    img: "../premios/laranxinha.png",
+    unlocked: false
+  },
+  {
+    nome: "Que isso, farmou muita aura",
+    tipo: "Aura",
+    quantidade: 10,
+    desc: "Farme 10 auras",
+    img: "../premios/aura.png",
+    unlocked: false
+  },
+  {
+    nome: "Six seven",
+    tipo: "67",
+    quantidade: 6,
+    desc: "Tenha 6 ou 7 six sevens",
+    img: "../premios/67.png",
+    unlocked: false
+  },
+  {
+    nome: "Foi o Lino...",
+    tipo: "Mouse roubado",
+    quantidade: 8,
+    desc: "Tenha 8 mouses roubados",
+    img: "../premios/mouse.png",
+    unlocked: false
+  },
+  {
+    nome: "Olha o heatchliff alí",
+    tipo: "Mendigo",
+    quantidade: 15,
+    desc: "Tenha 15 mendigos",
+    img: "../premios/heatchcliff.png",
+    unlocked: false
+  },
+  {
+    nome: "O peixe da gang",
+    tipo: "Peixe Sigma",
+    quantidade: 1,
+    desc: "Tenha 1 peixe sigma",
+    img: "../premios/peixesigma.png",
+    unlocked: false
+  },
+  {
+    nome: "VOCÊ É BETA",
+    tipo: "Peixe Beta",
+    quantidade: 20,
+    desc: "Tenha 20 peixes betas",
+    img: "../premios/peixebeta.png",
+    unlocked: false
+  },
+  {
+    nome: "Ningum me entende aqui...",
+    tipo: "Alisa meu pelo",
+    quantidade: 5,
+    desc: "Tenha 5 Alisa meu pelo",
+    img: "../premios/onca.png",
+    unlocked: false
+  },
+  {
+    nome: "Abaixa esse som!",
+    tipo: "Quidimais",
+    quantidade: 7,
+    desc: "Tenha 7 quidimais",
+    img: "../premios/quidimais.png",
+    unlocked: false
+  },
+  {
+    nome: "Vou colocar esse parafuso na orelha meo",
+    tipo: "Parafuso",
+    quantidade: 2,
+    desc: "Tenha 2 parafusos",
+    img: "../premios/parafuso.png",
     unlocked: false
   }
+
 ];
 
 
@@ -539,15 +614,15 @@ async function renderConquistas() {
   grid.innerHTML = "";
 
   for (const c of conquistas) {
-    c.unlocked = await usuarioTemConquista(c.id);
+    const unlocked = await usuarioTemConquista(c.nome);
 
     const div = document.createElement("div");
-    div.className = "conquista" + (c.unlocked ? "" : " locked");
+    div.className = "conquista" + (unlocked ? "" : " locked");
 
     div.innerHTML = `
-      <img src="${c.unlocked ? c.img : 'img/locked.png'}">
-      <div class="titulo">${c.unlocked ? c.titulo : '???'}</div>
-      <div class="desc">${c.unlocked ? c.desc : 'Conquista bloqueada'}</div>
+      <img src="${unlocked ? c.img : 'img/locked.png'}">
+      <div class="titulo">${unlocked ? c.nome : '???'}</div>
+      <div class="desc">${unlocked ? c.desc : 'Conquista bloqueada'}</div>
     `;
 
     grid.appendChild(div);
@@ -555,11 +630,80 @@ async function renderConquistas() {
 }
 
 
-async function toggleConquistas() {
 
+async function toggleConquistas() {
   document.getElementById("conquistas").classList.toggle("active");
   document.getElementById("overlayConquistas").classList.toggle("active");
-  renderConquistas();
+  verificarConquista();
+
 }
+//#endregion
+
+//#region Database conquistas
 
 
+async function verificarConquista() {
+  const { data: itens, error } = await supabasePublicClient
+    .from("inventario")
+    .select("nome, quantidade")
+    .eq("id_usuario", idUsuario);
+
+  if (error || !itens) {
+    console.error(error);
+    return;
+  }
+  //Conquistas especificas
+  if (peixeCoin <= 0 && await supabasePublicClient
+    .from("conquistas")
+    .select("id_conquista")
+    .eq("id_usuario", idUsuario)
+    .eq("conquista", "Pobre")
+    .single()) {
+    const { error: insertError } = await supabasePublicClient
+      .from("conquistas")
+      .insert({
+        id_usuario: idUsuario,
+        conquista: "Pobre"
+      });
+  }
+
+  if (peixeCoin >= 2000 && await supabasePublicClient
+          .from("conquistas")
+          .select("id_conquista")
+          .eq("id_usuario", idUsuario)
+          .eq("conquista", "Rico")
+          .single()) {
+    const { error: insertError } = await supabasePublicClient
+      .from("conquistas")
+      .insert({
+        id_usuario: idUsuario,
+        conquista: "Rico"
+      });
+
+  }
+
+  //Conquistas gerais
+  for (const regra of conquistas) {
+
+
+    for (const item of itens) {
+      if (item.nome == regra.tipo && item.quantidade >= regra.quantidade) {
+        const { data: jaExiste } = await supabasePublicClient
+          .from("conquistas")
+          .select("id_conquista")
+          .eq("id_usuario", idUsuario)
+          .eq("conquista", regra.nome)
+          .single();
+        if (!jaExiste) {
+          const { error: insertError } = await supabasePublicClient
+            .from("conquistas")
+            .insert({
+              id_usuario: idUsuario,
+              conquista: regra.nome
+            });
+        }
+      }
+    }
+  }
+}
+//#endregion
