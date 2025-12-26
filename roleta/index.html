@@ -14,14 +14,21 @@
 
 <body>
     <audio id="rouletteSound" src="../audio/Roleta.wav" preload="auto"></audio>
+    <audio id="premioSound" src="../audio/Premio.wav" preload="auto"></audio>
+    <audio id="conquistaSound" src="../audio/Conquista.mp3" preload="auto"></audio>
 
-    <div class="overlay" id="overlay">
-        <button id="inventarioButton" onclick="toggleInventario()">X</button>
-        <div class="inventario" id="inventario"></div>
+    <div class="overlay" id="overlay" onclick="toggleInventario()"></div>
+
+    <div class="inventario" id="inventario">
+        <button class="close" onclick="toggleInventario()">X</button>
+        <h2>Inventário</h2>
+        <div class="inventario-grid" id="inventarioGrid"></div>
+    </div>
+
     </div>
     <div class="right">
-    <button onclick="toggleConquistas()">🏆 Conquistas</button>
-</div>
+        <button onclick="toggleConquistas()">🏆 Conquistas</button>
+    </div>
 
     <div class="overlay" id="overlayConquistas" onclick="toggleConquistas()"></div>
 
@@ -30,9 +37,9 @@
         <h2>Conquistas</h2>
         <div class="conquistas-grid" id="conquistasGrid"></div>
     </div>
-    
+
     <div class="wrap">
-        
+
         <div class="card">
             <button onclick="toggleInventario()" style="position:absolute; top:20px; left:20px;">inventario</button>
             <div class="left">
@@ -56,11 +63,14 @@
                 </div>
                 <div class="history" id="history"></div>
 
-                
+
             </div>
         </div>
     </div>
 
+<div id="rotate-warning">
+  <p>Vire o celular para usar a PeixeBet</p>
+</div>
 
 </body>
 

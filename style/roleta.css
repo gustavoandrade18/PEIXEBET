@@ -9,6 +9,32 @@
   --glass: rgba(255, 255, 255, 0.05);
   --text-color: #d9f6ff;
 }
+#rotate-warning {
+  display: none; /* escondido por padrão */
+  position: fixed;
+  inset: 0;
+  background: #01121f;
+  color: white;
+  z-index: 9999;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+}
+
+/* SOMENTE quando estiver em vertical */
+@media (orientation: portrait) {
+  body > *:not(#rotate-warning) {
+    display: none !important;
+  }
+
+  #rotate-warning {
+    display: flex;
+  }
+}
+
+
 
 * {
   box-sizing: border-box;
@@ -17,9 +43,9 @@
 
 html,
 body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
-  background: radial-gradient(circle at 50% 15%, #033a53, #01121f 80%);
+  background: radial-gradient(circle at 50% 10%, #155370, #01121f 80%);
   color: var(--text-color);
 }
 
@@ -159,11 +185,6 @@ button:disabled {
   background: var(--accent);
 }
 
-footer {
-  font-size: 13px;
-  color: #9fd9f3;
-  margin-top: 8px;
-}
 
 @media(max-width:860px) {
   .card {
@@ -187,65 +208,54 @@ footer {
   z-index: 9;
 }
 
-/* Inventário */
 .inventario {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  /* permite itens quebrarem linha */
-  gap: 10px;
-  /* espaço entre itens */
-  overflow-y: auto;
-  /* scroll vertical */
-  padding: 10px;
-  /* evita itens colarem na borda */
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.8);
   width: 520px;
-  height: 450px;
-  background: rgba(255, 255, 255, 0.06);
+  height: 360px;
+
+  background: rgba(255,255,255,0.06);
   border-radius: 16px;
   backdrop-filter: blur(12px);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
 
+  padding: 14px;
   opacity: 0;
   pointer-events: none;
   transition: 0.3s ease;
   z-index: 10;
+  overflow: hidden;
 }
 
-/* Quando abrir */
 .inventario.active {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
   pointer-events: auto;
 }
 
+.inventario h2 {
+  margin: -30px 0 20px;
+  text-align: center;
+}
+
+.inventario-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  overflow-y: auto;
+  height: 290px;
+}
+
+
 .overlay.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-#inventarioButton {
-  position: absolute;
-  top: 20px;
-  right: 160px;
-  width: 40px;
-  height: 40px;
-  background: red;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  z-index: 20;
-  /* acima do inventário */
-  border: none;
-  cursor: pointer;
-}
+
 
 .item {
   width: 150px;

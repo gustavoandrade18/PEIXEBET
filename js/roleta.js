@@ -13,6 +13,11 @@ const idUsuario = localStorage.getItem("idUsuario");
 var peixeCoin = 0;
 const dinheiro = document.getElementById('peixeCoin');
 async function peixeCoinsGet() {
+  const { data: usuario } = await supabasePublicClient.from("usuarios").select("nome, senha,id_usuario").eq("id_usuario", idUsuario).single();
+  if (!usuario) {
+    alert("Usuário não logado!");
+    window.location.href = "../entrar/index.html";
+  }
   const { data, error } = await supabasePublicClient
     .from("usuarios")
     .select("peixeCoin")
@@ -41,13 +46,21 @@ async function peixeCoinsUpd() {
   dinheiro.innerHTML = `$${peixeCoin}`;
   return true;
 }
-
-if (!idUsuario) {
-  alert("Usuário não logado!");
-  window.location.href = "../entrar/index.html";
-}
 //som
 const rouletteSound = document.getElementById("rouletteSound");
+const premioSound = document.getElementById("premioSound");
+const conquistaSound = document.getElementById("conquistaSound");
+let audioLiberado = false;
+
+document.addEventListener("click", () => {
+  if (!audioLiberado) {
+      conquistaSound.play().then(() => {
+      conquistaSound.pause();
+      conquistaSound.currentTime = 0;
+      audioLiberado = true;
+    });
+  }
+});
 
 const prizes = [
   { text: "67", img: "../premios/67.png", chance: 0.13 },
@@ -57,9 +70,9 @@ const prizes = [
   { text: "Laranxinha", img: "../premios/laranxinha.png", chance: 0.13 },
   { text: "250 Peixe Coins", img: "../premios/peixecoin.png", chance: 0.17 },
   { text: "Peixe Beta", img: "../premios/peixebeta.png", chance: 0.2 },
-  { text: "Peixe Sigma", img: "../premios/peixesigma.png", chance: 0.007 },
+  { text: "Peixe Sigma", img: "../premios/peixesigma.png", chance: 0.01 },
   { text: "Alisa meu pelo", img: "../premios/onca.png", chance: 0.13 },
-  { text: "Parafuso", img: "../premios/parafuso.png", chance: 0.13 },
+  { text: "Parafuso", img: "../premios/parafuso.png", chance: 0.06 },
   { text: "Quidimais", img: "../premios/quidimais.png", chance: 0.13 }
 ];
 // script.js
@@ -250,6 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //toca o audio
     rouletteSound.currentTime = 0; // reinicia o áudio sempre
     rouletteSound.play().catch(() => { }); // ignora erro caso o autoplay seja bloqueado
+    
+    
 
     const chosenIndex = choosePrizeWeighted();
     const chosenPrize = prizes[chosenIndex];
@@ -299,6 +314,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // atualizar resultado e histórico
   async function announceResult(prize) {
+    premioSound.currentTime = 0; // reinicia o áudio sempre
+    premioSound.play().catch(() => { }); // ignora erro caso o autoplay seja bloqueado
     resultEl.textContent = `Prêmio: ${prize.text}`;
     addHistory(prize);
     liveRegion.textContent = `Prêmio: ${prize.text}`;
@@ -461,37 +478,49 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //abre  e fecha o inventario
-async function toggleInventario() {
-
+function toggleInventario() {
   const inv = document.getElementById("inventario");
   const overlay = document.getElementById("overlay");
 
   inv.classList.toggle("active");
   overlay.classList.toggle("active");
 
+  if (inv.classList.contains("active")) {
+    renderInventario();
+  }
+}
+
+async function renderInventario() {
+  const grid = document.getElementById("inventarioGrid");
+  grid.innerHTML = "";
+
   const { data: itens, error } = await supabasePublicClient
     .from("inventario")
     .select("*")
     .eq("id_usuario", idUsuario);
 
-  const invDiv = document.getElementById("inventario");
-  invDiv.innerHTML = ""; // limpa antes
+  if (error) {
+    console.error(error);
+    return;
+  }
 
-  itens.forEach(item => {
-    const el = document.createElement("div");
-    el.classList.add("item");
+  for (const item of itens) {
     const prize = prizes.find(p => p.text === item.nome);
-    const imagem = prize ? prize.img : null;
+    const imagem = prize ? prize.img : "img/unknown.png";
 
-    el.innerHTML = `
-    <img src="${imagem}" class="item-img">
-    <strong>${item.nome}</strong>
-    <span>Quantidade: ${item.quantidade}</span> `;
-    invDiv.appendChild(el);
-  });
+    const div = document.createElement("div");
+    div.className = "item";
 
+    div.innerHTML = `
+      <img src="${imagem}">
+      <div class="titulo">${item.nome}</div>
+      <div class="desc">Quantidade: ${item.quantidade}</div>
+    `;
 
+    grid.appendChild(div);
+  }
 }
+
 //#region Conquistas
 const conquistas = [
   {
@@ -660,7 +689,7 @@ async function verificarConquista() {
     .eq("id_usuario", idUsuario)
     .eq("conquista", "Pobre")
     .maybeSingle();
-    const { data: conquistaExiste2 } = await supabasePublicClient
+  const { data: conquistaExiste2 } = await supabasePublicClient
     .from("conquistas")
     .select("id_conquista")
     .eq("id_usuario", idUsuario)
@@ -674,9 +703,11 @@ async function verificarConquista() {
         id_usuario: idUsuario,
         conquista: "Pobre"
       });
+    conquistaSound.currentTime = 0; // reinicia o áudio sempre
+    conquistaSound.play().catch(() => { }); // ignora erro caso o autoplay seja bloqueado
     alert("Conquista desbloqueada: Pobre");
   }
-  
+
   else if (peixeCoin >= 2000 && !conquistaExiste2) {
     const { error: insertError } = await supabasePublicClient
       .from("conquistas")
@@ -684,6 +715,8 @@ async function verificarConquista() {
         id_usuario: idUsuario,
         conquista: "Rico"
       });
+    conquistaSound.currentTime = 0; // reinicia o áudio sempre
+    conquistaSound.play().catch(() => { }); // ignora erro caso o autoplay seja bloqueado
     alert("Conquista desbloqueada: Rico");
   }
 
@@ -706,7 +739,9 @@ async function verificarConquista() {
               id_usuario: idUsuario,
               conquista: regra.nome
             });
-            alert(`Conquista desbloqueada: ${regra.nome}`);
+          alert(`Conquista desbloqueada: ${regra.nome}`);
+          conquistaSound.currentTime = 0; // reinicia o áudio sempre
+          conquistaSound.play().catch(() => { }); // ignora erro caso o autoplay seja bloqueado
         }
       }
     }
