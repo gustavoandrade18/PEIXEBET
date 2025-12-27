@@ -2,7 +2,11 @@
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
-
+html, body{
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+}
 body {
   margin: 0;
   height: 100vh;
@@ -17,18 +21,18 @@ body {
   position: absolute;
   z-index: 2;
   left: 90%;
-  bottom: 420px;
+  bottom: 70%;
 }
 #churrasco {
   position: absolute;
   z-index: 2;
-  left: 25%;
+  left: 20%;
   bottom: 30%;
 }
 #tilapia {
   position: absolute;
   z-index: 0;
-  left: 85%;
+  left: 69%;
   bottom: 0%;
   transform: rotate(330deg);
   width: 150px;
@@ -93,12 +97,16 @@ h1 {
 .btn.primary:hover {
   filter: brightness(1.1);
 }
+.scene {
+  position: relative;
+
+}
 
 #corais {
   position: absolute;
   bottom: -80px;
   left: 0;
-  width: 100%;
+  width: 110%;
   height: 500px;
   overflow: hidden;
   /* corta o que passar */

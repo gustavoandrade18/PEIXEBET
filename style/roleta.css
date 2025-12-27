@@ -12,30 +12,22 @@
 
 #rotate-warning {
   display: none;
-  /* escondido por padrão */
+  /* por padrão escondido */
   position: fixed;
-  inset: 0;
-  background: #01121f;
-  color: white;
-  z-index: 9999;
-
-  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #011627;
+  color: #fff;
+  font-size: 24px;
+  display: flex;
   justify-content: center;
+  align-items: center;
   text-align: center;
-  font-size: 20px;
+  z-index: 9999;
+  padding: 20px;
 }
-
-/* SOMENTE quando estiver em vertical */
-@media (orientation: portrait) {
-  body>*:not(#rotate-warning) {
-    display: none !important;
-  }
-
-  #rotate-warning {
-    display: flex;
-  }
-}
-
 
 
 * {
@@ -146,6 +138,7 @@ button:disabled {
   text-align: center;
   border: 1px solid rgba(35, 216, 255, 0.15);
 }
+
 .rightC {
   padding: 8px;
   transform: translateX(0px);
@@ -455,7 +448,7 @@ button:disabled {
 .card {
   position: relative;
   z-index: 1;
-  
+
 }
 
 .scene {
@@ -473,7 +466,7 @@ button:disabled {
   /* corta o que passar */
   pointer-events: none;
   /* não atrapalha cliques */
-  
+
 }
 
 .coral {
@@ -498,42 +491,59 @@ button:disabled {
 .c4 {
   left: 640px;
 }
+
 .c5 {
   left: 870px;
 }
+
 .c6 {
   left: 1100px;
 }
+
 .c7 {
   left: 1330px;
 }
-#pescador{
+
+#pescador {
   position: absolute;
   z-index: 2;
   left: 400px;
-  bottom: 744px;
+  bottom: 82%;
 }
-#baiacu{
+
+@media (max-width: 1200px) {
+  #pescador {
+    position: absolute;
+    z-index: 2;
+    left: 400px;
+    bottom: 83.5%;
+  }
+}
+
+#baiacu {
   position: absolute;
   z-index: 0;
   left: 20px;
   bottom: 600px;
   width: 150px;
 }
-#tilapia{
+
+#tilapia {
   position: absolute;
   z-index: 0;
   left: 90%;
   bottom: 17%;
   width: 150px;
 }
-#pirarucu{
+
+#pirarucu {
   position: absolute;
   z-index: 0;
   left: 50%;
-  bottom: 80%;
+  bottom: 82%;
   width: 150px;
 }
+
 .bolhas {
   position: absolute;
   inset: 0;
@@ -546,7 +556,7 @@ button:disabled {
   position: absolute;
   bottom: -100px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #aef, rgba(255,255,255,0.1));
+  background: radial-gradient(circle at 30% 30%, #aef, rgba(255, 255, 255, 0.1));
   opacity: 0.6;
   animation: subir linear infinite;
 }
@@ -555,6 +565,7 @@ button:disabled {
   from {
     transform: translateY(0);
   }
+
   to {
     transform: translateY(-140vh);
   }

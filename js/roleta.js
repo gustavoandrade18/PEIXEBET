@@ -7,6 +7,26 @@ const supabasePublicClient = supabase.createClient("https://wdydybykkhkbqrahiegq
   }
 );
 
+function checkOrientation() {
+    const warning = document.getElementById("rotate-warning");
+
+    if (window.innerHeight > window.innerWidth) {
+        // Retrato
+        warning.style.display = "flex";
+    } else {
+        // Paisagem
+        warning.style.display = "none";
+    }
+}
+
+// Checa no carregamento da página
+window.addEventListener('load', checkOrientation);
+
+// Checa ao redimensionar ou girar a tela
+window.addEventListener('resize', checkOrientation);
+window.addEventListener('orientationchange', checkOrientation);
+
+
 const container = document.querySelector(".bolhas");
 
 for (let i = 0; i < 25; i++) {
