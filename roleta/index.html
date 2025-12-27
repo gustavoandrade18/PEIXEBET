@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.min.js"></script>
-    <script src="../js/conquistas.js"></script>
     <script src="../js/roleta.js" defer></script>
     <link rel="stylesheet" href="../style/roleta.css">
     <title>PeixeBet</title>
@@ -17,61 +16,80 @@
     <audio id="premioSound" src="../audio/Premio.wav" preload="auto"></audio>
     <audio id="conquistaSound" src="../audio/Conquista.mp3" preload="auto"></audio>
 
-    <div class="overlay" id="overlay" onclick="toggleInventario()"></div>
+    <div class="scene">
+        <div class="bolhas"></div>
 
-    <div class="inventario" id="inventario">
-        <button class="close" onclick="toggleInventario()">X</button>
-        <h2>Inventário</h2>
-        <div class="inventario-grid" id="inventarioGrid"></div>
-    </div>
 
-    </div>
-    <div class="right">
-        <button onclick="toggleConquistas()">🏆 Conquistas</button>
-    </div>
+        <div class="overlay" id="overlay" onclick="toggleInventario()"></div>
 
-    <div class="overlay" id="overlayConquistas" onclick="toggleConquistas()"></div>
+        <div class="inventario" id="inventario">
+            <button class="close" onclick="toggleInventario()">X</button>
+            <h2>Inventário</h2>
+            <div class="inventario-grid" id="inventarioGrid"></div>
+        </div>
 
-    <div class="conquistas" id="conquistas">
-        <button class="close" onclick="toggleConquistas()">X</button>
-        <h2>Conquistas</h2>
-        <div class="conquistas-grid" id="conquistasGrid"></div>
-    </div>
+        
+        <div class="rightC">
+            <button onclick="toggleConquistas()">🏆 Conquistas</button>
+        </div>
 
-    <div class="wrap">
+        <div class="overlay" id="overlayConquistas" onclick="toggleConquistas()"></div>
+        <img src="../imagens/baiacu.png" id="baiacu">
+        <img src="../imagens/tilapia.png" id="tilapia">
+        <img src="../imagens/pirarucu.png" id="pirarucu">
 
-        <div class="card">
-            <button onclick="toggleInventario()" style="position:absolute; top:20px; left:20px;">inventario</button>
-            <div class="left">
-                <h1>PeixeBet</h1>
-                <canvas id="wheelCanvas" width="840" height="840" aria-label="Roleta"></canvas>
-                <div class="pointer" title="Ponteiro"></div>
-                <div class="controls">
-                    <div class="info" id="result">Pronto — clique em Girar</div>
-                    <div style="display:flex;gap:8px">
-                        <div id="peixeCoin"></div>
-                        <button id="spinBtn">Girar <br> <span class="cost">🐟 50</span></button>
-                        <!--button id="fastBtn">Girar Rápido <br> <span class="cost">🐟 50</span></button-->
+
+        <div class="conquistas" id="conquistas">
+            <button class="close" onclick="toggleConquistas()">X</button>
+            <h2>Conquistas</h2>
+            <div class="conquistas-grid" id="conquistasGrid"></div>
+        </div>
+        <img src="../imagens/pescador.png" id="pescador">
+        <div class="wrap">
+            <div class="card">
+                <button onclick="toggleInventario()" style="position:absolute; top:20px; left:20px;">inventario</button>
+                <div class="left">
+                    <h1>PeixeBet</h1>
+                    <canvas id="wheelCanvas" width="800" height="800" aria-label="Roleta"></canvas>
+                    <div class="pointer" title="Ponteiro"></div>
+                    <div class="controls">
+                        <div class="info" id="result">Pronto — clique em Girar</div>
+                        <div style="display:flex;gap:8px">
+                            <div id="peixeCoin"></div>
+                            <button id="spinBtn">Girar <br> <span class="cost">🐟 50</span></button>
+                            <!--button id="fastBtn">Girar Rápido <br> <span class="cost">🐟 50</span></button-->
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="right">
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                    <strong>Últimos resultados</strong>
-                    <small id="count">0</small>
+                <div class="right">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <strong>Últimos resultados</strong>
+                        <small id="count">0</small>
+                    </div>
+                    <div class="history" id="history"></div>
+
+
                 </div>
-                <div class="history" id="history"></div>
-
-
             </div>
+
         </div>
+        <div id="corais">
+            <img src="../imagens/coral.png" class="coral c1">
+            <img src="../imagens/coral2.png" class="coral c2">
+            <img src="../imagens/coral.png" class="coral c3">
+            <img src="../imagens/coral3.png" class="coral c4">
+            <img src="../imagens/coral2.png" class="coral c5">
+            <img src="../imagens/coral.png" class="coral c6">
+            <img src="../imagens/coral3.png" class="coral c7">
+        </div>
+
+
+        <div id="rotate-warning">
+            <p>Vire o celular para usar a PeixeBet</p>
+        </div>
+        <br><br>
     </div>
-
-<div id="rotate-warning">
-  <p>Vire o celular para usar a PeixeBet</p>
-</div>
-
 </body>
 
 </html>

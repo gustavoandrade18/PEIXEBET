@@ -10,11 +10,12 @@ body {
 }
 
 .container {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.8);
   padding: 24px;
   border-radius: 12px;
   width: 320px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  z-index: 2;
 }
 
 #ranking h2 {
@@ -32,9 +33,9 @@ body {
   border-radius: 8px;
 }
 
-.rank-item:nth-child(2) { background: rgba(255, 215, 0, 0.15); }
-.rank-item:nth-child(3) { background: rgba(192, 192, 192, 0.15); }
-.rank-item:nth-child(4) { background: rgba(205, 127, 50, 0.15); }
+.rank-item:nth-child(3) { background: rgba(255, 215, 0, 0.15); }
+.rank-item:nth-child(4) { background: rgba(192, 192, 192, 0.15); }
+.rank-item:nth-child(5) { background: rgba(205, 127, 50, 0.15); }
 
 .posicao {
   font-weight: bold;
@@ -50,4 +51,95 @@ body {
 .pontos {
   text-align: right;
   font-weight: bold;
+}
+
+#ranking {
+  width: 100%;
+}
+
+.rank-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.rank-header .n {
+  text-align: left;
+}
+
+.rank-header .c {
+  text-align: right;
+}
+
+#corais {
+  position: absolute;
+  bottom: -80px;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  /* corta o que passar */
+  pointer-events: none;
+  /* não atrapalha cliques */
+  
+}
+
+.coral {
+  position: absolute;
+  bottom: -70px;
+  width: 300px;
+}
+
+/* deslocamentos manuais */
+.c1 {
+  left: -50px;
+}
+
+.c2 {
+  left: 180px;
+}
+
+.c3 {
+  left: 410px;
+}
+
+.c4 {
+  left: 640px;
+}
+.c5 {
+  left: 870px;
+}
+.c6 {
+  left: 1100px;
+}
+.c7 {
+  left: 1330px;
+}
+
+.bolhas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bolha {
+  position: absolute;
+  bottom: -100px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #aef, rgba(255,255,255,0.1));
+  opacity: 0.6;
+  animation: subir linear infinite;
+}
+
+@keyframes subir {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-120vh);
+  }
 }

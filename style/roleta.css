@@ -9,8 +9,10 @@
   --glass: rgba(255, 255, 255, 0.05);
   --text-color: #d9f6ff;
 }
+
 #rotate-warning {
-  display: none; /* escondido por padrão */
+  display: none;
+  /* escondido por padrão */
   position: fixed;
   inset: 0;
   background: #01121f;
@@ -25,7 +27,7 @@
 
 /* SOMENTE quando estiver em vertical */
 @media (orientation: portrait) {
-  body > *:not(#rotate-warning) {
+  body>*:not(#rotate-warning) {
     display: none !important;
   }
 
@@ -144,10 +146,16 @@ button:disabled {
   text-align: center;
   border: 1px solid rgba(35, 216, 255, 0.15);
 }
+.rightC {
+  padding: 8px;
+  transform: translateX(0px);
+}
 
 .right {
   padding: 8px;
-  transform: translateX(50px);
+  transform: translateX(0px);
+  margin-left: 7%;
+  margin-right: 2%;
 }
 
 .history {
@@ -216,11 +224,11 @@ button:disabled {
   width: 520px;
   height: 360px;
 
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 16px;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
 
   padding: 14px;
   opacity: 0;
@@ -441,4 +449,113 @@ button:disabled {
 .conquista.locked .titulo,
 .conquista.locked .desc {
   color: #777;
+}
+
+.wrap,
+.card {
+  position: relative;
+  z-index: 1;
+  
+}
+
+.scene {
+  position: relative;
+  overflow: hidden;
+}
+
+#corais {
+  position: absolute;
+  bottom: -80px;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  /* corta o que passar */
+  pointer-events: none;
+  /* não atrapalha cliques */
+  
+}
+
+.coral {
+  position: absolute;
+  bottom: -70px;
+  width: 300px;
+}
+
+/* deslocamentos manuais */
+.c1 {
+  left: -50px;
+}
+
+.c2 {
+  left: 180px;
+}
+
+.c3 {
+  left: 410px;
+}
+
+.c4 {
+  left: 640px;
+}
+.c5 {
+  left: 870px;
+}
+.c6 {
+  left: 1100px;
+}
+.c7 {
+  left: 1330px;
+}
+#pescador{
+  position: absolute;
+  z-index: 2;
+  left: 400px;
+  bottom: 744px;
+}
+#baiacu{
+  position: absolute;
+  z-index: 0;
+  left: 20px;
+  bottom: 600px;
+  width: 150px;
+}
+#tilapia{
+  position: absolute;
+  z-index: 0;
+  left: 90%;
+  bottom: 17%;
+  width: 150px;
+}
+#pirarucu{
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 80%;
+  width: 150px;
+}
+.bolhas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bolha {
+  position: absolute;
+  bottom: -100px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #aef, rgba(255,255,255,0.1));
+  opacity: 0.6;
+  animation: subir linear infinite;
+}
+
+@keyframes subir {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-140vh);
+  }
 }

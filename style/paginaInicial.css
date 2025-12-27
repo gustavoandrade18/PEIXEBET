@@ -6,20 +6,49 @@
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at top, #012a3a, #00121c);
+  background: radial-gradient(circle at 50% 10%, #155370, #01121f 80%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #e8fbff;
 }
 
+#calaboca {
+  position: absolute;
+  z-index: 2;
+  left: 90%;
+  bottom: 420px;
+}
+#churrasco {
+  position: absolute;
+  z-index: 2;
+  left: 25%;
+  bottom: 30%;
+}
+#tilapia {
+  position: absolute;
+  z-index: 0;
+  left: 85%;
+  bottom: 0%;
+  transform: rotate(330deg);
+  width: 150px;
+}
+
+#bait {
+  position: absolute;
+  z-index: 0;
+  left: 2%;
+  bottom: 65%;
+  width: 150px;
+}
 .container {
   background: rgba(1, 40, 60, 0.9);
   border-radius: 16px;
   padding: 40px 50px;
   text-align: center;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   width: 340px;
+  z-index: 1;
 }
 
 h1 {
@@ -48,7 +77,7 @@ h1 {
   color: #e8fbff;
   font-weight: 600;
   transition: 0.2s ease;
-  border: 1px solid rgba(35,216,255,0.15);
+  border: 1px solid rgba(35, 216, 255, 0.15);
 }
 
 .btn:hover {
@@ -63,4 +92,79 @@ h1 {
 
 .btn.primary:hover {
   filter: brightness(1.1);
+}
+
+#corais {
+  position: absolute;
+  bottom: -80px;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  /* corta o que passar */
+  pointer-events: none;
+  /* não atrapalha cliques */
+
+}
+
+.coral {
+  position: absolute;
+  bottom: -70px;
+  width: 300px;
+}
+
+/* deslocamentos manuais */
+.c1 {
+  left: -50px;
+}
+
+.c2 {
+  left: 180px;
+}
+
+.c3 {
+  left: 410px;
+}
+
+.c4 {
+  left: 640px;
+}
+
+.c5 {
+  left: 870px;
+}
+
+.c6 {
+  left: 1100px;
+}
+
+.c7 {
+  left: 1330px;
+}
+
+.bolhas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bolha {
+  position: absolute;
+  bottom: -100px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #aef, rgba(255, 255, 255, 0.1));
+  opacity: 0.6;
+  animation: subir linear infinite;
+}
+
+@keyframes subir {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-120vh);
+  }
 }

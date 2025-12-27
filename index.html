@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <title>PeixeBet</title>
   <link rel="stylesheet" href="style/paginaInicial.css" />
   <link rel="icon" href="peixonauta.png" type="image/png">
 </head>
-<body>
 
+<body>
+  <div class="bolhas"></div>
+  <img src="imagens/calaboca.png" id="calaboca">
+  <img src="imagens/churrasco.png" id="churrasco">
+  <img src="imagens/tilapia.png" id="tilapia">
+  <img src="imagens/bait.png" id="bait">
   <div class="container">
     <h1>PeixeBet</h1>
     <p class="subtitle">Escolha o que deseja fazer</p>
@@ -16,8 +22,36 @@
       <a href="roleta/index.html" class="btn primary">🎰 Ir para a Roleta</a>
       <a href="cadastrar/index.html" class="btn">📝 Cadastrar</a>
       <a href="entrar/index.html" class="btn">🔑 Entrar</a>
+      <a href="ranking/index.html" class="btn">🏆 Ranking</a>
     </div>
   </div>
-
+  <div id="corais">
+    <img src="imagens/coral.png" class="coral c1">
+    <img src="imagens/coral2.png" class="coral c2">
+    <img src="imagens/coral.png" class="coral c3">
+    <img src="imagens/coral3.png" class="coral c4">
+    <img src="imagens/coral2.png" class="coral c5">
+    <img src="imagens/coral.png" class="coral c6">
+    <img src="imagens/coral3.png" class="coral c7">
+  </div>
 </body>
+<script>
+  const container = document.querySelector(".bolhas");
+
+  for (let i = 0; i < 25; i++) {
+    const bolha = document.createElement("div");
+    bolha.classList.add("bolha");
+
+    const size = Math.random() * 30 + 10; // tamanho
+    bolha.style.width = `${size}px`;
+    bolha.style.height = `${size}px`;
+
+    bolha.style.left = `${Math.random() * 100}vw`;
+    bolha.style.animationDuration = `${Math.random() * 20 + 16}s`;
+    bolha.style.animationDelay = `${Math.random() * 5}s`;
+
+    container.appendChild(bolha);
+  }
+</script>
+
 </html>

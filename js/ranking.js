@@ -6,6 +6,23 @@ const supabasePublicClient = supabase.createClient("https://wdydybykkhkbqrahiegq
   }
 );
 
+const container = document.querySelector(".bolhas");
+
+for (let i = 0; i < 25; i++) {
+  const bolha = document.createElement("div");
+  bolha.classList.add("bolha");
+
+  const size = Math.random() * 30 + 10; // tamanho
+  bolha.style.width = `${size}px`;
+  bolha.style.height = `${size}px`;
+
+  bolha.style.left = `${Math.random() * 100}vw`;
+  bolha.style.animationDuration = `${Math.random() * 20 + 16}s`;
+  bolha.style.animationDelay = `${Math.random() * 5}s`;
+
+  container.appendChild(bolha);
+}
+
 const rank = document.getElementById("ranking");
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -19,7 +36,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  rank.innerHTML = "<h2>Ranking</h2>";
+  rank.innerHTML = `
+  <h2>Ranking</h2>
+  <div class="rank-header">
+    <span class="n">Nome</span>
+    <span class="c">Conquistas</span>
+  </div>
+`;
+
 
   data.forEach((linha, index) => {
     const div = document.createElement("div");

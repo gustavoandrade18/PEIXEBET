@@ -6,6 +6,24 @@ const supabasePublicClient = supabase.createClient("https://wdydybykkhkbqrahiegq
     }
   }
 );
+
+const container = document.querySelector(".bolhas");
+
+for (let i = 0; i < 25; i++) {
+  const bolha = document.createElement("div");
+  bolha.classList.add("bolha");
+
+  const size = Math.random() * 30 + 10; // tamanho
+  bolha.style.width = `${size}px`;
+  bolha.style.height = `${size}px`;
+
+  bolha.style.left = `${Math.random() * 100}vw`;
+  bolha.style.animationDuration = `${Math.random() * 20 + 16}s`;
+  bolha.style.animationDelay = `${Math.random() * 5}s`;
+
+  container.appendChild(bolha);
+}
+
 //Verificar login
 const idUsuario = localStorage.getItem("idUsuario");
 
@@ -253,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   // lógica de giro
-  function spin(extraRotations = 6) {
+async function spin(extraRotations = 6) {
     peixeCoinsUpd();
     if (spinning) return;
     spinning = true;
@@ -536,7 +554,7 @@ const conquistas = [
     tipo: "peixeCoin",
     quantidade: 0,
     desc: "Tenha 0 PeixeCoins",
-    img: "../premios/peixecoin.png",
+    img: "../conquistas/Pobre.png",
     unlocked: false
   },
   {
@@ -651,7 +669,7 @@ async function renderConquistas() {
     div.className = "conquista" + (unlocked ? "" : " locked");
 
     div.innerHTML = `
-      <img src="${unlocked ? c.img : 'img/locked.png'}">
+      <img src="${unlocked ? c.img : '../imagens/locked.png'}">
       <div class="titulo">${unlocked ? c.nome : '???'}</div>
       <div class="desc">${unlocked ? c.desc : 'Conquista bloqueada'}</div>
     `;
